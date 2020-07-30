@@ -1,10 +1,10 @@
-Dreamroq by Mike Melanson (mike -at- multimedia.cx)
-R2 update by Josh Pearson (ph3nom.dcmc@gmail.com)
-Library version by lerabot
+- Dreamroq by Mike Melanson (mike -at- multimedia.cx)
+- R2 update by Josh Pearson (ph3nom.dcmc@gmail.com)
+- Library version by lerabot
 
 ## Introduction
 Dreamroq is a RoQ playback library designed for the Sega Dreamcast video
-game console.
+game console. The original version can be found here: https://github.com/multimediamike/dreamroq
 
 RoQ is a relatively simple video file format developed for video-heavy
 CD-ROM games. Read more about the format here: http://wiki.multimedia.cx/index.php?title=RoQ
@@ -33,30 +33,34 @@ the specific text in LICENSE.KOS.
 
 ## Building the library
 Make sure you clone this this directory
- $(KOS_BASE)/addons
+`$(KOS_BASE)/addons`
 
 Then, inside the libdreamroq folder, simply type
-make defaultall
+`make defaultall`
 
 You'll be able to link the library using
- -ldreamroq
+ `-ldreamroq`
 
 There is a very simple exemple in the samples folder.
 
 ## Encoding video using FFMPEG
 You can encode your video using this handy ffmpeg command
 
- ffmpeg -i input_video.mp4 -ar 22050 output_video.roq
+`ffmpeg -i input_video.mp4 -ar 22050 output_video.roq`
 
 The -ar argument is recommended if you're planning to have sound in your video.
 
 Additional options :
--s : Size
--b:v : Video Bitrate
--b:a : Audio Bitrate
--vf scale=640:436,pad=640:448:0:6
+* -s : Size
+* -b:v : Video Bitrate
+* -b:a : Audio Bitrate
+* -vf scale=640:436,pad=640:448:0:6
 
 ## Bugs, Issues, and Future Development
+: Notes by lerabot:
+
+While the sound does work there are some dropouts here and there.
+
 :R2 Release by PH3NOM:
 
 I have updated the dreamroq library to support decoding of DPCM
