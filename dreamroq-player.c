@@ -224,8 +224,8 @@ int free_variables() {
   graphics_initialized = 0;
   video_delay;
   frame=0;
-  vid_width = 320;
-  vid_height = 240;	
+  vid_width = 640;
+  vid_height = 480;	
 }
 
 int roq_free_audio() {
