@@ -41,5 +41,6 @@ extern "C" int roq_audio_cb(unsigned char *buf, int size, int channels);
 extern "C" int roq_quit_cb();
 extern "C" int roq_free_texture();
 extern "C" int roq_free_audio();
+extern "C" int free_variables();
 
 #endif  /* NEWROQ_H */
