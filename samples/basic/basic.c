@@ -8,7 +8,7 @@
   Feel free to check the library code and come up with your own.
 
 */
-
+#include <kos.h>
 #include <stdio.h>
 #include <dreamroq/dreamroqlib.h>
 
