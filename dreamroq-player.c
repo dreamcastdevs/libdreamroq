@@ -205,7 +205,7 @@ int roq_set_size(int width, int height) {
     return ROQ_SUCCESS;
 }
 
- int roq_quit_cb(){
+int roq_quit_cb(){
   maple_device_t *cont;
   cont = maple_enum_type(0, MAPLE_FUNC_CONTROLLER);
 
@@ -214,12 +214,21 @@ int roq_set_size(int width, int height) {
   return (state->buttons & CONT_START);
 }
 
- int roq_free_texture(){
+int roq_free_texture(){
   pvr_mem_free(textures[0]);
   pvr_mem_free(textures[1]);
 }
 
- int roq_free_audio() {
+int free_variables() {
+  current_frame = 0;
+  graphics_initialized = 0;
+  video_delay;
+  frame=0;
+  vid_width = 640;
+  vid_height = 480;	
+}
+
+int roq_free_audio() {
   if(audio_init)
   {
     snddrv.dec_status = SNDDEC_STATUS_DONE;  /* Singal audio thread to stop */
