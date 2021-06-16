@@ -569,7 +569,7 @@ int roq_play(char *filename, int loop, render_callback render_cb,
     free(state.frame[1]);
     roq_free_texture();
     roq_free_audio();
-	free_variables();
+	free_variables()
     fclose(f);
 	pvr_shutdown();
 

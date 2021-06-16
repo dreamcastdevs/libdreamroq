@@ -34,7 +34,7 @@ typedef int (*quit_callback)();
 extern "C" int roq_play(char *filename, int loop, render_callback render_cb,
                   audio_callback audio_cb, quit_callback quit_cb);
 
-int roq_set_size(int width, int height);
+extern "C" int roq_set_size(int width, int height);
 
 extern "C" int roq_render_cb(unsigned short *buf, int width, int height, int stride, int texture_height);
 extern "C" int roq_audio_cb(unsigned char *buf, int size, int channels);

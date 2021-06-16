@@ -218,7 +218,7 @@ int roq_set_size(int width, int height) {
     return (cont.buttons & CONT_START);
 }
 
- int roq_free_texture(){
+int roq_free_texture(){
   pvr_mem_free(textures[0]);
   pvr_mem_free(textures[1]);
 }
