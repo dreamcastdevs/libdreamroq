@@ -271,7 +271,6 @@ snd_stream_hnd_t snd_stream_alloc(snd_stream_callback_t cb, int bufsize) {
 	// And channels
 	streams[hnd].ch[0] = snd_sfx_chn_alloc();
 	streams[hnd].ch[1] = snd_sfx_chn_alloc();
-	printf("snd_stream: alloc'd channels %d/%d\n", streams[hnd].ch[0], streams[hnd].ch[1]);
 
 	return hnd;
 }
@@ -458,7 +457,6 @@ int snd_stream_poll(snd_stream_hnd_t hnd) {
 		needed_samples = (streams[hnd].buffer_size/2) - streams[hnd].last_write_pos;
 	/* round it a little bit */
 	needed_samples &= ~0x7ff;
-	/* printf("last_write_pos %6i, current_play_pos %6i, needed_samples %6i\n",last_write_pos,current_play_pos,needed_samples); */
 
 	//if (needed_samples > 0) {
 	if (needed_samples ==4096) {

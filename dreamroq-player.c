@@ -34,9 +34,9 @@ static int        current_frame = 0;
 static int        graphics_initialized = 0;
 static float      video_delay;
 static int        frame=0;
-static int        vid_width = 640;
-static int        vid_height = 480;
-static const float VIDEO_RATE = 30.0f; /* Video FPS */
+static int        vid_width = 320;
+static int        vid_height = 240;
+static const float VIDEO_RATE = 25.0f; /* Video FPS */
 
 static void snd_thd(){
     do
@@ -110,8 +110,8 @@ int roq_set_size(int width, int height) {
 
         ul_x = 0;
         ul_y = 0;
-        br_x = 640;
-        br_y = 480;
+        br_x = 512;
+        br_y = 270;
 
 
 
@@ -206,17 +206,30 @@ int roq_set_size(int width, int height) {
 }
 
  int roq_quit_cb(){
-  maple_device_t *cont;
-  cont = maple_enum_type(0, MAPLE_FUNC_CONTROLLER);
+    cont_cond_t cont;
 
-  cont_state_t *state;
-  state = maple_dev_status(cont);
-  return (state->buttons & CONT_START);
+    /* check controller state */
+    if (cont_get_cond(maple_first_controller(), &cont))
+    {
+        /* controller read error */
+        return 1;
+    }
+    cont.buttons = ~cont.buttons;
+    return (cont.buttons & CONT_START);
 }
 
  int roq_free_texture(){
   pvr_mem_free(textures[0]);
   pvr_mem_free(textures[1]);
+}
+
+int free_variables() {
+  current_frame = 0;
+  graphics_initialized = 0;
+  video_delay;
+  frame=0;
+  vid_width = 320;
+  vid_height = 240;	
 }
 
  int roq_free_audio() {

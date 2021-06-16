@@ -16,8 +16,6 @@ extern uint8 romdisk[];
 KOS_INIT_ROMDISK(romdisk);
 
 int main() {
-  printf("DreamROQ Demo.\n");
-
   vid_set_mode(DM_640x480, PM_RGB565);
   pvr_init_defaults();
 
@@ -27,6 +25,4 @@ int main() {
             roq_audio_cb,     // default audio callback
             roq_quit_cb      // default quit callback
           );
-
-  printf("DreamROQ video done.\n");
 }

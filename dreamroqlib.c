@@ -364,6 +364,7 @@ static int roq_unpack_vq(unsigned char *buf, int size, unsigned int arg,
 int roq_play(char *filename, int loop, render_callback render_cb,
                   audio_callback audio_cb, quit_callback quit_cb)
 {
+	pvr_init_defaults();
     FILE *f;
     size_t file_ret;
     int framerate;
@@ -385,7 +386,6 @@ int roq_play(char *filename, int loop, render_callback render_cb,
     if (file_ret != 1)
     {
         fclose(f);
-        printf("\nROQ_FILE_READ_FAILURE\n\n");
         return ROQ_FILE_READ_FAILURE;
 
     }
@@ -397,7 +397,6 @@ int roq_play(char *filename, int loop, render_callback render_cb,
         return ROQ_FILE_READ_FAILURE;
     }
     framerate = LE_16(&read_buffer[6]);
-    printf("RoQ file plays at %d frames/sec\n", framerate);
 
     /* Initialize Audio SQRT Look-Up Table */
     for(i = 0; i < 128; i++)
@@ -409,7 +408,6 @@ int roq_play(char *filename, int loop, render_callback render_cb,
     status = ROQ_SUCCESS;
     while (!feof(f) && status == ROQ_SUCCESS)
     {
-        printf("DreamROQ: playing frame %d\n", frameCount);
         frameCount++;
         /* if client program defined a quit callback, check if it's time
          * to quit */
@@ -418,7 +416,7 @@ int roq_play(char *filename, int loop, render_callback render_cb,
 
         file_ret = fread(read_buffer, CHUNK_HEADER_SIZE, 1, f);
         #ifdef FPSGRAPH
-                printf("r\n");
+               
         #endif
         if (file_ret != 1)
         {
@@ -496,9 +494,7 @@ int roq_play(char *filename, int loop, render_callback render_cb,
                 while (state.texture_height < state.height)
                     state.texture_height <<= 1;
             }
-            printf("  RoQ_INFO: dimensions = %dx%d, %dx%d; %d mbs, texture = %dx%d\n",
-                state.width, state.height, state.mb_width, state.mb_height,
-                state.mb_count, state.stride, state.texture_height);
+
             state.frame[0] = (unsigned short*)malloc(state.texture_height * state.stride * sizeof(unsigned short));
             state.frame[1] = (unsigned short*)malloc(state.texture_height * state.stride * sizeof(unsigned short));
             state.current_frame = 0;
@@ -573,7 +569,9 @@ int roq_play(char *filename, int loop, render_callback render_cb,
     free(state.frame[1]);
     roq_free_texture();
     roq_free_audio();
+	free_variables();
     fclose(f);
+	pvr_shutdown();
 
     return status;
 }

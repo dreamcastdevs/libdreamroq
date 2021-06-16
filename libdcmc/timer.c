@@ -28,7 +28,7 @@ void frame_delay( float AVI_video_rate, float AVI_delay, int frameCounter )
 {    
         float AVI_real_time =  frameCounter / AVI_video_rate;
         float CPU_real_time= ( ( (float)dc_get_time()- AVI_delay ) / 1000.0f );
-        //printf("AVI_real_time: %f, CPU_real_time %f\n", AVI_real_time, CPU_real_time );          
+         
         while ( CPU_real_time < AVI_real_time ) {
               CPU_real_time= ( ( (float)dc_get_time()- AVI_delay ) / 1000.0f );
               thd_pass();

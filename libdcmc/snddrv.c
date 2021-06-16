@@ -59,9 +59,6 @@ int snddrv_exit() {
 
         while( snddrv.drv_status != SNDDRV_STATUS_NULL )
           thd_pass();
-
-
-        printf("SNDDRV: Exited\n");
     }
 
     memset( snddrv.pcm_buffer, 0, 65536+16384);
@@ -94,8 +91,6 @@ static void *snddrv_callback(snd_stream_hnd_t hnd, int len, int * actual) {
 
 static int snddrv_thread() {
 
-    printf("SNDDRV: Rate - %i, Channels - %i\n", snddrv.rate, snddrv.channels);
-
 	shnd = snd_stream_alloc(snddrv_callback, SND_STREAM_BUFFER_MAX/4);
 
     snd_stream_start(shnd, snddrv.rate, snddrv.channels-1);
@@ -112,8 +107,6 @@ static int snddrv_thread() {
     snd_stream_destroy(shnd);
 	snd_stream_shutdown();
 
-    printf("SNDDRV: Finished\n");
-
 	return snddrv.drv_status;
 }
 
@@ -123,11 +116,8 @@ int snddrv_start( int rate, int chans ) {
     snddrv.rate = rate;
     snddrv.channels = chans;
     if( snddrv.channels > 2) {
-        printf("SNDDRV: ERROR - Exceeds maximum channels\n");
         return -1;
     }
-
-    printf("SNDDRV: Creating Driver Thread\n");
 
     snddrv.drv_status = SNDDRV_STATUS_INITIALIZING;
 
